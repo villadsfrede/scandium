@@ -26,5 +26,8 @@
     <ClInclude Include="ray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="spectrum.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
