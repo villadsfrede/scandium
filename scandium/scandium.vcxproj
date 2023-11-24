@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ray.hpp" />
+    <ClInclude Include="shape.hpp" />
     <ClInclude Include="spectrum.hpp" />
     <ClInclude Include="vector.hpp" />
   </ItemGroup>
