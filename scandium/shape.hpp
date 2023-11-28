@@ -8,7 +8,7 @@ class Shape {
 public:
 	Shape(const Transform* ObjectToWorld, const Transform* WorldToObject);
 
-	virtual bool Intersect(const Ray& ray, float* tHis) const = 0;
+	virtual bool Intersect(const Ray& ray, float* tHit) const = 0;
 
 	const Transform* ObjectToWorld, WorldToObject;
 };

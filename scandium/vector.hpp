@@ -4,7 +4,7 @@
 template <template <typename> class Child, typename T>
 class Tuple3 {
 public:
-	Tuple3() : x(0), y(0), z(0) {}
+	//Tuple3() : x(0), y(0), z(0) {}
 	Tuple3(T x, T y, T z) : x(x), y(y), z(z) {}
 
 	T operator[](int i) const {

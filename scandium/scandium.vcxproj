@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="math.hpp" />
     <ClInclude Include="ray.hpp" />
+    <ClInclude Include="scan.h" />
     <ClInclude Include="shape.hpp" />
     <ClInclude Include="spectrum.hpp" />
     <ClInclude Include="sphere.hpp" />
