@@ -130,9 +130,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="math.hpp" />
     <ClInclude Include="ray.hpp" />
     <ClInclude Include="shape.hpp" />
     <ClInclude Include="spectrum.hpp" />
+    <ClInclude Include="transform.hpp" />
     <ClInclude Include="vector.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
