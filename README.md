@@ -1,3 +1,3 @@
 # scandium
 ## Ray Tracing
-## WIP
+### WIP
