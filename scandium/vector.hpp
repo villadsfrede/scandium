@@ -4,7 +4,6 @@
 template <template <typename> class Child, typename T>
 class Tuple3 {
 public:
-	//Tuple3() : x(0), y(0), z(0) {}
 	Tuple3(T x, T y, T z) : x(x), y(y), z(z) {}
 
 	T operator[](int i) const {
@@ -105,11 +104,8 @@ inline C<T> Max(Tuple3<C, T> t1, Tuple3<C, T> t2) {
 template <typename T>
 class Vector3 : public Tuple3<Vector3, T> {
 public:
-	Vector3(T x, T y, T z) : Tuple3<Vector3, T>(x, y, z) {}
+	Vector3(T x = 0, T y = 0, T z = 0) : Tuple3<Vector3, T>(x, y, z) {}
 };
-
-using Vector3f = Vector3<float>;
-using Vector3i = Vector3<int>;
 
 template <typename T>
 inline T Dot(const Vector3<T>& v1, Vector3<T>& v2) {
@@ -120,6 +116,9 @@ template <typename T>
 inline Vector3<T> Cross(const Vector3<T>& v1, const Vector3<T>& v2) {
 	return { (v1.y * v2.z) - (v1.z * v2.y), (v1.z * v2.x) - (v1.x * v2.z), (v1.x * v2.y) - (v1.y * v2.x) };
 }
+
+using Vector3f = Vector3<float>;
+using Vector3i = Vector3<int>;
 
 //////////////////////////
 //        POINTS        //
