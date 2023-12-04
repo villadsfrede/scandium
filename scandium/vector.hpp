@@ -108,6 +108,22 @@ public:
 };
 
 template <typename T>
+inline T LengthSquared(Vector3<T> v) {
+	return v.x * v.x + v.y * v.y + v.z * v.z;
+}
+
+template <typename T>
+inline T Length(Vector3<T> v) {
+	using std::sqrt;
+	return sqrt(LengthSquared(v));
+}
+
+template <typename T>
+inline Vector3<T> Normalize(Vector3<T> v) {
+	return v / Length(v);
+}
+
+template <typename T>
 inline T Dot(const Vector3<T>& v1, Vector3<T>& v2) {
 	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
