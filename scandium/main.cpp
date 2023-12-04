@@ -11,8 +11,8 @@
 
 float sm[4][4] = { {1,0,0,0}, {0,1,0,0}, {0,0,1,0}, {0,0,0,1} };
 
-float st[4][4] = { {1,0,0,1}, {0,1,0,1}, {0,0,1,-5}, {0,0,0,1} };
-float ist[4][4] = { {1,0,0,-1}, {0,1,0,-1}, {0,0,1,5}, {0,0,0,1} };
+float st[4][4] = { {1,0,0,0}, {0,1,0,0}, {0,0,1,-10}, {0,0,0,1} };
+float ist[4][4] = { {1,0,0,0}, {0,1,0,}, {0,0,1,10}, {0,0,0,1} };
 
 Transform tst = Transform(st);
 Transform tist = Transform(ist);
@@ -23,7 +23,7 @@ Scene scn = Scene(s);
 
 Transform t = Transform(sm);
 
-ProjectiveCamera c = ProjectiveCamera(&t, scn, 1000, 1000, 2.5);
+ProjectiveCamera c = ProjectiveCamera(&t, scn, 1000, 1000, 1.57);
 
 
 int main() {

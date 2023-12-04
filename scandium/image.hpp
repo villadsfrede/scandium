@@ -14,7 +14,6 @@ void save(int width, int height, Vector3f* film) {
 		output << 255 << std::endl;
 
 		for (int i = 0; i < width * height; ++i) {
-			//std::cout << film[i].x << ' ' << film[i].y << ' ' << film[i].z << std::endl;
 			output << (int)film[i].x << ' ';
 			output << (int)film[i].y << ' ';
 			output << (int)film[i].z << '\n';

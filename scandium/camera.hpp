@@ -46,7 +46,7 @@ public:
 	ProjectiveCamera(const Transform* CTW, const Scene scene, int width, int height, float fov) : Camera(CTW, scene, width, height, fov), AspectRatio(width / height), scale(tan(fov * 0.5)) {}
 
 	Ray GenerateRay(int ImageX, int ImageY) {
-		float x = (2 * (ImageX + 0.5) / width) * AspectRatio * scale;
+		float x = (2 * (ImageX + 0.5) / width - 1) * AspectRatio * scale;
 		float y = (1 - 2 * (ImageY + 0.5) / height) * scale;
 		Vector3f dir = Normalize((*CTW)(Vector3f(x, y, -1)));
 		return Ray(origin, dir);
