@@ -2,6 +2,7 @@
 #define SCAN_CAMERA_H
 
 #include <cmath>
+#include "scan.h"
 #include "ray.hpp"
 #include "transform.hpp"
 #include "image.hpp"
@@ -16,14 +17,34 @@ public:
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				Ray ray = GenerateRay(j, i);
-
-				float tHit = 0;
-
-				if (scene.Shapes[0]->Intersect(ray, &tHit)) {
-					*(pixels++) = Vector3f(255, 0, 0);
+				bool hit = false;
+				float tHit;
+				Normal3f normal;
+				Vector3f L = -scene.Lights->dir;
+				
+				/*
+				if (!scene.Shapes[0]->Intersect(ray, &tHit, &normal)) {
+					(*pixel++) = Vector3f(0, 0, 0);
 				}
 				else {
-					*(pixels++) = Vector3f(0, 0, 0);
+					Vector3f c = scene.Lights->color * std::max(0.0f, Dot(normal, L)) * 0.18f / Pi * scene.Lights->intensity;
+					(*pixel++) = Vector3f((int)c.x, (int)c.y, (int)c.z);
+				}
+				*/
+
+				for (int x = 0; x < scene.Shapes.size(); x++) {
+					if (scene.Shapes[x]->Intersect(ray, &tHit, &normal)) {
+						hit = true;
+						ray.timeMax = tHit;
+					}
+				}
+
+				if (hit) {
+					Vector3f c = scene.Lights->color * std::max(0.0f, Dot(normal, L)) * 0.18f / Pi * scene.Lights->intensity;
+					(*pixel++) = Vector3f((int)c.x, (int)c.y, (int)c.z);
+				}
+				else {
+					(*pixel++) = Vector3f(0, 0, 0);
 				}
 			}
 		}
@@ -37,7 +58,7 @@ public:
 	const int height;
 	const float fov;
 	Vector3f* film = new Vector3f[width * height];
-	Vector3f* pixels = film;
+	Vector3f* pixel = film;
 };
 
 

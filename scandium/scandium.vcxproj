@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="camera.hpp" />
     <ClInclude Include="image.hpp" />
+    <ClInclude Include="light.hpp" />
     <ClInclude Include="math.hpp" />
     <ClInclude Include="ray.hpp" />
     <ClInclude Include="scan.h" />

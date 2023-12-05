@@ -8,6 +8,8 @@ class Ray {
 public:
 	Ray(Point3f o, Vector3f d, float time = 0.0f, float timeMax = Infinity) : o(o), d(d), time(time), timeMax(timeMax) {}
 
+	Point3f operator()(float t) const { return o + d * t; }
+
 	Point3f o;
 	Vector3f d;
 	float time;

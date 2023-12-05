@@ -1,6 +1,14 @@
 #ifndef SCAN_VECTOR_H
 #define SCAN_VECTOR_H
 
+template <typename Ta, typename Tb, typename Tc, typename Td>
+inline auto SumOfProducts(Ta a, Tb b, Tc c, Td d) {
+	auto cd = c * d;
+	auto sumOfProducts = fma(a, b, cd);
+	auto error = fma(c, d, -cd);
+	return sumOfProducts + error;
+}
+
 template <template <typename> class Child, typename T>
 class Tuple3 {
 public:
@@ -18,6 +26,19 @@ public:
 		if (i == 2) { return z; }
 	}
 	
+	template <typename U>
+	auto operator = (Child<U> c) const->Child<decltype(T{} = U{}) > {
+		return { c.x, c.y, c.z };
+	}
+
+	template <typename U>
+	Child<T>& operator = (Child<U> c) {
+		x = c.x;
+		y = c.y;
+		z = c.z;
+		return static_cast<Child<T> &>(*this);
+	}
+
 	template <typename U>
 	auto operator + (Child<U> c) const->Child<decltype(T{} + U{}) > {
 		return { x + c.x, y + c.y, z + c.z };
@@ -143,7 +164,16 @@ using Vector3i = Vector3<int>;
 template <typename T>
 class Point3 : public Tuple3<Point3, T> {
 public:
-	Point3(T x, T y, T z) : Tuple3<Point3, T>(x, y, z) {}
+	using Tuple3<Point3, T>::x;
+	using Tuple3<Point3, T>::y;
+	using Tuple3<Point3, T>::z;
+
+	Point3(T x = 0, T y = 0, T z = 0) : Tuple3<Point3, T>(x, y, z) {}
+
+	template <typename U>
+	auto operator + (Vector3<U> v) const->Point3<decltype(T{} + U{})> {
+		return { x + v.x, y + v.y, z + v.z };
+	}
 };
 
 using Point3f = Point3<float>;
@@ -155,8 +185,14 @@ using Point3i = Point3<int>;
 
 template <typename T>
 class Normal3 : public Tuple3<Normal3, T> {
-	Normal3(T x, T y, T z) : Tuple3<Normal3, T>(x, y, z) {}
+public:
+	Normal3(T x = 0, T y = 0, T z = 0) : Tuple3<Normal3, T>(x, y, z) {}	
 };
+
+template <typename T>
+inline auto Dot(Normal3<T> n, Vector3<T> v) {
+	return fma(n.x, v.x, SumOfProducts(n.y, v.y, n.z, v.z));
+}
 
 using Normal3f = Normal3<float>;
 using Normal3i = Normal3<int>;

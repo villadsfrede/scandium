@@ -9,14 +9,15 @@ class Sphere : public Shape {
 public:
 	Sphere(const Transform* ObjectToWorld, const Transform* WorldToObject, float radius) : Shape(ObjectToWorld, WorldToObject), radius(radius) {}
 
-	bool Intersect(const Ray& r, float* tHit) const;
+	bool Intersect(const Ray& r, float* tHit, Normal3f* normal) const;
 
 private:
 	const float radius;
 };
 
-bool Sphere::Intersect(const Ray& r, float* tHit) const {
+bool Sphere::Intersect(const Ray& r, float* tHit, Normal3f* normal) const {
 	Ray ray = (*WorldToObject)(r);
+	Point3f pHit;
 
 	//std::cout << ray.d.x << std::endl;
 
@@ -52,6 +53,8 @@ bool Sphere::Intersect(const Ray& r, float* tHit) const {
 	}
 
 	*tHit = (float)tShapeHit;
+	pHit = ray(*tHit);
+	*normal = Normal3f(pHit.x, pHit.y, pHit.z);
 	return true;
 }
 
