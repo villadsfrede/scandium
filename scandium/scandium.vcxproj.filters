@@ -56,5 +56,11 @@
     <ClInclude Include="light.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="plane.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cylinder.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

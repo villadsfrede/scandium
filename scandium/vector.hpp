@@ -194,6 +194,11 @@ inline auto Dot(Normal3<T> n, Vector3<T> v) {
 	return fma(n.x, v.x, SumOfProducts(n.y, v.y, n.z, v.z));
 }
 
+template <typename T>
+inline auto Dot(Normal3<T> n, Point3<T> p) {
+	return fma(n.x, p.x, SumOfProducts(n.y, p.y, n.z, p.z));
+}
+
 using Normal3f = Normal3<float>;
 using Normal3i = Normal3<int>;
 

@@ -22,16 +22,6 @@ public:
 				Normal3f normal;
 				Vector3f L = -scene.Lights->dir;
 				
-				/*
-				if (!scene.Shapes[0]->Intersect(ray, &tHit, &normal)) {
-					(*pixel++) = Vector3f(0, 0, 0);
-				}
-				else {
-					Vector3f c = scene.Lights->color * std::max(0.0f, Dot(normal, L)) * 0.18f / Pi * scene.Lights->intensity;
-					(*pixel++) = Vector3f((int)c.x, (int)c.y, (int)c.z);
-				}
-				*/
-
 				for (int x = 0; x < scene.Shapes.size(); x++) {
 					if (scene.Shapes[x]->Intersect(ray, &tHit, &normal)) {
 						hit = true;
@@ -41,7 +31,8 @@ public:
 
 				if (hit) {
 					Vector3f c = scene.Lights->color * std::max(0.0f, Dot(normal, L)) * 0.18f / Pi * scene.Lights->intensity;
-					(*pixel++) = Vector3f((int)c.x, (int)c.y, (int)c.z);
+					(*pixel++) = Vector3f(c.x, c.y, c.z);
+					//(*pixel++) = Vector3f(255, 0, 0);
 				}
 				else {
 					(*pixel++) = Vector3f(0, 0, 0);

@@ -5,45 +5,46 @@
 #include "transform.hpp"
 #include "shape.hpp"
 #include "sphere.hpp"
+#include "plane.hpp"
+#include "cylinder.hpp"
 #include "image.hpp"
 #include "camera.hpp"
 #include "scene.hpp"
 
 int main() {
-	float sm[4][4] = { {1,0,0,0}, {0,1,0,0}, {0,0,1,0}, {0,0,0,1} };
+	SquareMatrix<4> sphereMAT = SquareMatrix<4>();
+	SquareMatrix<4> isphereMAT = SquareMatrix<4>();
+	sphereMAT.m[2][3] = -5;
+	isphereMAT.m[2][3] = 5;
+	Transform sphereTRA = Transform(sphereMAT);
+	Transform isphereTRA = Transform(isphereMAT);
+	auto sphere = std::make_shared<Sphere>(&sphereTRA, &isphereTRA, 1);
 
-	float st1[4][4] = { {1,0,0,2}, {0,1,0,0}, {0,0,1,-5}, {0,0,0,1} };
-	float ist1[4][4] = { {1,0,0,-2}, {0,1,0,}, {0,0,1,5}, {0,0,0,1} };
+	SquareMatrix<4> bigsphereMAT = SquareMatrix<4>();
+	SquareMatrix<4> ibigsphereMAT = SquareMatrix<4>();
+	bigsphereMAT.m[2][3] = -5;
+	ibigsphereMAT.m[2][3] = 5;
+	bigsphereMAT.m[1][3] = -10;
+	ibigsphereMAT.m[1][3] = 10;
+	Transform bigsphereTRA = Transform(bigsphereMAT);
+	Transform ibigsphereTRA = Transform(ibigsphereMAT);
+	auto bigsphere = std::make_shared<Sphere>(&bigsphereTRA, &ibigsphereTRA, 8);
 
-	Transform tst1 = Transform(st1);
-	Transform tist1 = Transform(ist1);
-
-	auto s1 = std::make_shared<Sphere>(&tst1, &tist1, 1);
-
-	float st2[4][4] = { {1,0,0,-2}, {0,1,0,0}, {0,0,1,-5}, {0,0,0,1} };
-	float ist2[4][4] = { {1,0,0,2}, {0,1,0,}, {0,0,1,5}, {0,0,0,1} };
-
-	Transform tst2 = Transform(st2);
-	Transform tist2 = Transform(ist2);
-
-	auto s2 = std::make_shared<Sphere>(&tst2, &tist2, 1);
-
-	float lt[4][4] = { {1,0,0,0}, {0,1,0,0}, {0,0,1,0}, {0,0,0,1} };
-	Transform tlt = Transform(lt);
-
-	auto l = std::make_shared<DistantLight>(&tlt, Vector3f(1, 1, 1), 2500, Vector3f(0, 0, -1));
+	SquareMatrix<4> lightMAT = SquareMatrix<4>();
+	Transform lightTRA = Transform(lightMAT);
+	auto light = std::make_shared<DistantLight>(&lightTRA, Vector3f(1, 1, 1), 1000, Vector3f(0, 0, -1));
 
 	Scene scene = Scene();
 
-	scene.addShape(s1);
-	scene.addShape(s2);
-	scene.addSLight(l);
+	scene.addShape(sphere);
+	scene.addShape(bigsphere);
+	scene.addSLight(light);
 
-	Transform t = Transform(sm);
+	SquareMatrix<4> cameraMAT = SquareMatrix<4>();
+	Transform cameraTRA = Transform(cameraMAT);
+	ProjectiveCamera camera = ProjectiveCamera(&cameraTRA, scene, 1000, 1000, 1.5);
 
-	ProjectiveCamera c = ProjectiveCamera(&t, scene, 1000, 1000, 1.5);
-	
-	c.Render();
+	camera.Render();
 
 	return 0;
 }
