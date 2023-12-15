@@ -17,29 +17,43 @@ public:
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				Ray ray = GenerateRay(j, i);
-				bool hit = false;
-				float tHit;
-				Normal3f normal;
-				Vector3f L = -scene.Lights->dir;
-				
-				for (int x = 0; x < scene.Shapes.size(); x++) {
-					if (scene.Shapes[x]->Intersect(ray, &tHit, &normal)) {
-						hit = true;
-						ray.timeMax = tHit;
-					}
-				}
-
-				if (hit) {
-					Vector3f c = scene.Lights->color * std::max(0.0f, Dot(normal, L)) * 0.18f / Pi * scene.Lights->intensity;
-					(*pixel++) = Vector3f(c.x, c.y, c.z);
-					//(*pixel++) = Vector3f(255, 0, 0);
-				}
-				else {
-					(*pixel++) = Vector3f(0, 0, 0);
-				}
+				(*pixel++) = castRay(ray, 0);
 			}
 		}
 		save(width, height, film);
+	}
+
+	Vector3f castRay(Ray& ray, int depth) {
+		bool hit = false;
+		float tHit;
+		Normal3f normal;
+		Vector3f L = -scene.Lights->dir;
+		Vector3f hColor = Vector3f(0, 0, 0);
+		int type;
+
+		for (int x = 0; x < scene.Shapes.size(); x++) {
+			if (scene.Shapes[x]->Intersect(ray, &tHit, &normal)) {
+				hit = true;
+				ray.timeMax = tHit;
+				type = scene.Shapes[x]->type;
+			}
+		}
+
+		if (hit) {
+			if (type == 0) {
+				hColor = scene.Lights->color * std::max(0.0f, Dot(normal, L)) * 0.18f / Pi * scene.Lights->intensity;
+			}
+			if (type == 1) {
+				if (depth < 10) {
+					Point3f pHit = ray(tHit);
+					ray.o = Point3f(pHit.x + normal.x, pHit.y + normal.y, pHit.z + normal.z);
+					ray.d = Reflect(Normalize(ray.d), Vector3f(normal.x, normal.y, normal.z));
+					hColor += castRay(ray, depth + 1) * 0.8;
+				}
+			}
+		}
+
+		return hColor;
 	}
 
 	const Transform* CTW;

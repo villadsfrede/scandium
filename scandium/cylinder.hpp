@@ -3,6 +3,7 @@
 
 #include "shape.hpp"
 
+/*
 class Cylinder : public Shape {
 public:
 	Cylinder(const Transform* ObjectToWorld, const Transform* WorldToObject, float radius, float zMin, float zMax) : Shape(ObjectToWorld, WorldToObject), radius(radius), zMin(zMin), zMax(zMax) {}
@@ -46,5 +47,6 @@ bool Cylinder::Intersect(const Ray& r, float* tHit, Normal3f* normal) const {
 	*normal = Normal3f(pHit.x, pHit.y, pHit.z);
 	return true;
 }
+*/
 
 #endif

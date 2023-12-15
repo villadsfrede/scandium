@@ -135,6 +135,7 @@
     <ClInclude Include="cylinder.hpp" />
     <ClInclude Include="image.hpp" />
     <ClInclude Include="light.hpp" />
+    <ClInclude Include="material.hpp" />
     <ClInclude Include="math.hpp" />
     <ClInclude Include="plane.hpp" />
     <ClInclude Include="ray.hpp" />

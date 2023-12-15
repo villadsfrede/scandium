@@ -7,7 +7,7 @@
 
 class Sphere : public Shape {
 public:
-	Sphere(const Transform* ObjectToWorld, const Transform* WorldToObject, float radius) : Shape(ObjectToWorld, WorldToObject), radius(radius) {}
+	Sphere(const Transform* ObjectToWorld, const Transform* WorldToObject, const int type, float radius) : Shape(ObjectToWorld, WorldToObject, type), radius(radius) {}
 
 	bool Intersect(const Ray& r, float* tHit, Normal3f* normal) const;
 

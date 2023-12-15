@@ -145,13 +145,18 @@ inline Vector3<T> Normalize(Vector3<T> v) {
 }
 
 template <typename T>
-inline T Dot(const Vector3<T>& v1, Vector3<T>& v2) {
+inline T Dot(const Vector3<T>& v1, const Vector3<T>& v2) {
 	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
 template <typename T>
 inline Vector3<T> Cross(const Vector3<T>& v1, const Vector3<T>& v2) {
 	return { (v1.y * v2.z) - (v1.z * v2.y), (v1.z * v2.x) - (v1.x * v2.z), (v1.x * v2.y) - (v1.y * v2.x) };
+}
+
+template <typename T>
+inline Vector3<T> Reflect(const Vector3<T> I, const Vector3<T> N) {
+	return I - N * 2 * Dot(I, N);
 }
 
 using Vector3f = Vector3<float>;
@@ -186,6 +191,10 @@ using Point3i = Point3<int>;
 template <typename T>
 class Normal3 : public Tuple3<Normal3, T> {
 public:
+	using Tuple3<Normal3, T>::x;
+	using Tuple3<Normal3, T>::y;
+	using Tuple3<Normal3, T>::z;
+
 	Normal3(T x = 0, T y = 0, T z = 0) : Tuple3<Normal3, T>(x, y, z) {}	
 };
 

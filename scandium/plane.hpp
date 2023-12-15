@@ -3,6 +3,7 @@
 
 #include "shape.hpp"
 
+/*
 class Plane : public Shape {
 public:
 	Plane(const Transform* ObjectToWorld, const Transform* WorldToObject, const float height) : Shape(ObjectToWorld, WorldToObject), height(height) {}
@@ -19,5 +20,6 @@ bool Plane::Intersect(const Ray& r, float* tHit, Normal3f* normal) const {
 	
 	return false;
 }
+*/
 
 #endif

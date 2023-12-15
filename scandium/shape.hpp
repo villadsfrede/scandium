@@ -7,11 +7,12 @@
 
 class Shape {
 public:
-	Shape(const Transform* ObjectToWorld, const Transform* WorldToObject) : ObjectToWorld(ObjectToWorld), WorldToObject(WorldToObject) {}
+	Shape(const Transform* ObjectToWorld, const Transform* WorldToObject, const int type) : ObjectToWorld(ObjectToWorld), WorldToObject(WorldToObject), type(type) {}
 
 	virtual bool Intersect(const Ray& ray, float* tHit, Normal3f* normal) const = 0;
 
 	const Transform *ObjectToWorld, *WorldToObject;
+	const int type;
 };
 
 #endif
