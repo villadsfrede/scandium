@@ -7,7 +7,6 @@
 
 class Transform {
 public:
-	//Transform() : m(SquareMatrix<4>()) {}
 	Transform(SquareMatrix<4> m) : m(m) {}
 	Transform(float matrix[4][4]) : Transform(SquareMatrix<4>(matrix)) {}
 
@@ -23,6 +22,7 @@ private:
 	SquareMatrix<4> m;
 };
 
+// Transformation af punkt
 template <typename T>
 inline Point3<T> Transform::operator()(const Point3<T> &p) const {
 	T xp = m.m[0][0] * p.x + m.m[0][1] * p.y + m.m[0][2] * p.z + m.m[0][3];
@@ -37,6 +37,7 @@ inline Point3<T> Transform::operator()(const Point3<T> &p) const {
 	}
 }
 
+// Transformation af vektor
 template <typename T>
 inline Vector3<T> Transform::operator()(const Vector3<T> &v) const {
 	T x = v.x, y = v.y, z = v.z;
@@ -45,6 +46,7 @@ inline Vector3<T> Transform::operator()(const Vector3<T> &v) const {
 					  m.m[2][0] * x + m.m[2][1] * y + m.m[2][2] * z);
 }
 
+// Transformation af stråle
 inline Ray Transform::operator()(const Ray& r) const {
 	Point3f o = (*this)(r.o);
 	Vector3f d = (*this)(r.d);

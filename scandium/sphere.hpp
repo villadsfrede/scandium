@@ -9,13 +9,15 @@ class Sphere : public Shape {
 public:
 	Sphere(const Transform* ObjectToWorld, const Transform* WorldToObject, const int type, float radius) : Shape(ObjectToWorld, WorldToObject, type), radius(radius) {}
 
-	bool Intersect(const Ray& r, float* tHit, Normal3f* normal) const;
+	bool Intersect(const Ray& r, float* tHit, Normal3f* normal, float tNear) const;
 
+	// Kugle privat data
 private:
 	const float radius;
 };
 
-bool Sphere::Intersect(const Ray& r, float* tHit, Normal3f* normal) const {
+// Kugle og stråle skæringsfunktion
+bool Sphere::Intersect(const Ray& r, float* tHit, Normal3f* normal, float tNear) const {
 	Ray ray = (*WorldToObject)(r);
 	Point3f pHit;
 
@@ -40,14 +42,14 @@ bool Sphere::Intersect(const Ray& r, float* tHit, Normal3f* normal) const {
 	
 	//std::cout << t1 << ' ' << t2 << std::endl;
 	
-	if (t1 > ray.timeMax || t2 <= 0) {
+	if (t1 > tNear || t2 <= 0) {
 		return false;
 	}
 
 	float tShapeHit = t1;
 	if (t1 <= 0) {
 		tShapeHit = t2;
-		if (tShapeHit > ray.timeMax) {
+		if (tShapeHit > tNear) {
 			return false;
 		}
 	}

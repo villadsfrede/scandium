@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 
+// Gemmer et PPM billede
 void save(int width, int height, Vector3f* film) {
 	std::ofstream output("IMAGE.PPM", std::ios::binary);
 

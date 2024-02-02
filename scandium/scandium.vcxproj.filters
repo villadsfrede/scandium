@@ -26,9 +26,6 @@
     <ClInclude Include="ray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="spectrum.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="shape.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -56,13 +53,7 @@
     <ClInclude Include="light.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="plane.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cylinder.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="material.hpp">
+    <ClInclude Include="trianglemesh.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

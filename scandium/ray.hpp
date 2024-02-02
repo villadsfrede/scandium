@@ -10,6 +10,7 @@ public:
 
 	Point3f operator()(float t) const { return o + d * t; }
 
+	// Stråle data
 	Point3f o;
 	Vector3f d;
 	float time;

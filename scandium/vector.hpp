@@ -9,6 +9,10 @@ inline auto SumOfProducts(Ta a, Tb b, Tc c, Td d) {
 	return sumOfProducts + error;
 }
 
+//////////////////////////
+//        TUPLE3        //
+//////////////////////////
+
 template <template <typename> class Child, typename T>
 class Tuple3 {
 public:
@@ -210,32 +214,5 @@ inline auto Dot(Normal3<T> n, Point3<T> p) {
 
 using Normal3f = Normal3<float>;
 using Normal3i = Normal3<int>;
-
-//////////////////////////
-//        BOUNDS        //
-//////////////////////////
-
-template <typename T>
-class Bounds3 {
-public:
-	Bounds3() {
-		T minNum = std::numeric_limits<T>::lowest();
-		T maxNum = std::numeric_limits<T>::max();
-		pMin = Point3<T>(maxNum, maxNum, maxNum);
-		pMax = Point3<T>(minNum, minNum, minNum);
-	}
-
-	Bounds3(Point3<T> p1, Point3<T> p2) : pMin(Min(p1, p2)), pMax(Max(p1, p2)) {}
-
-	
-	Point3<T> Corner(int corner) const {
-		return Point3<T>;
-	}
-
-	Point3<T> pMin, pMax;
-};
-
-using Bounds3f = Bounds3<float>;
-using Bounds3i = Bounds3<int>;
 
 #endif

@@ -7,17 +7,15 @@
 
 class Scene {
 public:
-	//Scene(std::shared_ptr<Shape> Shape, std::shared_ptr<DistantLight> Light) { Shapes.push_back(Shape); Lights = Light; }
-	
+	// Scene data
 	std::vector<std::shared_ptr<Shape>> Shapes;
 	std::shared_ptr<DistantLight> Lights;
 
 	Scene() {}
 
+	// Funktioner til at tilføje objekter og lys
 	void addShape(std::shared_ptr<Shape> Shape) { Shapes.push_back(Shape); }
 	void addSLight(std::shared_ptr<DistantLight> Light) { Lights = Light; }
-
-	
 };
 
 #endif
